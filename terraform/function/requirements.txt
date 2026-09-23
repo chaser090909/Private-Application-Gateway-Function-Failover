@@ -1,0 +1,5 @@
+azure-identity>=1.17.1,<2
+azure-mgmt-containerinstance>=10.1.0,<11
+azure-mgmt-network>=28.1.0,<32
+azure-mgmt-privatedns>=1.1.0,<2
+azure-mgmt-monitor>=6.0.2,<8

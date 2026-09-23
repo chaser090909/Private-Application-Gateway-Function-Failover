@@ -1,0 +1,42 @@
+# Copy to terraform.tfvars and adjust. Every value below is optional; the
+# defaults produce the documented topology.
+
+# subscription_id = "00000000-0000-0000-0000-000000000000"
+
+# Three groups: one per region, plus a shared group for DNS, the watchdog, and
+# all monitoring.
+primary_resource_group_name   = "rg-appgw-primary-eus"
+secondary_resource_group_name = "rg-appgw-secondary-cus"
+shared_resource_group_name    = "rg-appgw-shared-resource"
+
+primary_location   = "eastus"
+secondary_location = "centralus"
+# shared_location  = "eastus"   # defaults to primary_location
+
+tags = {
+  businessUnit = "OMP"
+  costCenter   = "CIS"
+  env          = "Dev"
+  owner        = "chase.goebel@ibm.com"
+}
+
+# Static private frontends. Each must fall inside its region's gateway subnet.
+primary_appgw_private_ip   = "10.1.1.10"
+secondary_appgw_private_ip = "10.2.1.10"
+
+# app.internal.contoso.com is the only name clients resolve.
+private_dns_zone_name = "internal.contoso.com"
+dns_record_name       = "app"
+
+# Watchdog. B1 is the smallest tier that supports Always On, which the
+# 30-second timer needs to stay warm. Six NCRONTAB fields, so the first is
+# seconds.
+app_service_plan_sku = "B1"
+watchdog_schedule    = "*/30 * * * * *"
+
+# Primary probe-down alerts email this address and call the failover webhook.
+# alert_email_address = "chase.goebel@ibm.com"
+
+# Optional curl client inside the primary VNet. Needs an SSH public key.
+deploy_test_vm = false
+# test_vm_ssh_public_key = "ssh-rsa AAAA..."

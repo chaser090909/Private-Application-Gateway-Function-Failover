@@ -1,0 +1,10 @@
+.terraform/
+.terraform.lock.hcl
+.artifacts/
+*.tfstate
+*.tfstate.*
+tfplan
+crash.log
+terraform.tfvars
+*.auto.tfvars
+__pycache__/
